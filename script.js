@@ -44,7 +44,7 @@ function operate(operator,a,b){
             return substract(a,b);
         case '*':
             return (b==0) ? '0' : multiply(a,b);
-        case '/':
+        case '':
            return (b==0) ? 'ERROR' : divide(a,b);
     }
 }
@@ -91,8 +91,6 @@ NUMBERBUTTONS.forEach(numberButton => {
         if (!disableDot || disableDot && numberButton.textContent!=='.' && onlyOneDecimal===true){
             (!operatorActive) ? setValue1(numberButton) : setValue2(numberButton);
         }
-        
-
         if (numberButton.textContent=='.') disableDot = true;
         isFirstInputNumber = true;
 

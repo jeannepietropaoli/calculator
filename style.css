@@ -4,7 +4,7 @@
   }
 
 *{
-    font-family: Patua;
+    font-family: Patua, Arial, sans-serif;
 }
 
 body{
@@ -40,6 +40,11 @@ body{
 
 .currentOperation{
     align-self: flex-end;
+}
+
+.lign{
+    display: flex;
+    flex-direction: row;
 }
 
 .buttons{
@@ -91,13 +96,4 @@ body{
     background-color: rgb(255,63,52);
 }
 
-.lign{
-    display: flex;
-    flex-direction: row;
-}
-
-
-.clearbtns{
-    align-self: flex-end;
-}
 
