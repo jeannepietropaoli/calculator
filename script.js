@@ -85,6 +85,32 @@ function setValue2(n){
     currentValue = value2;
 }
 
+function resetForOperation(){
+    disableDot = false;
+    onlyOneDecimal = true;
+    if (resultGiven) resultGiven=false;
+}
+
+function activateOperation(operatorBtn){
+    currentValue = '';
+    isFirstInputNumber = false;
+    operatorActive = true;
+    operator = operatorBtn.textContent;
+    CURRENTOPERATION.textContent += operatorBtn.textContent;
+    currentValue = operator;
+    displayResults(operator);
+}
+
+function currentOperationBackspace(currentOp){
+    operationAray = Array.from(currentOp.textContent);
+    lastChar = operationAray[operationAray.length-1];
+    if (lastChar!=='+' && lastChar!=='-' && lastChar!=='*' && lastChar!=='/' ){
+        currentOp.textContent = (operationAray.slice(0, operationAray.length-1)).join('');
+    } else {
+        isFirstInputNumber = false;
+    }
+}
+
 NUMBERBUTTONS.forEach(numberButton => {
     numberButton.addEventListener('click', function displayNumbers() {
         if (resultGiven) resetPara();
@@ -96,23 +122,14 @@ NUMBERBUTTONS.forEach(numberButton => {
 
             OPERATORBUTTONS.forEach(operatorButton => {
                 operatorButton.addEventListener('click', function displayOperator(){
-                    disableDot = false;
-                    onlyOneDecimal = true;
-                    if (resultGiven) resultGiven=false;
+                    resetForOperation();
                     if (isFirstInputNumber){
-                        currentValue = '';
-                        isFirstInputNumber = false;
-                        operatorActive = true;
-                        if (disableDot) disableDot = false;
-                        operator = operatorButton.textContent;
-                        CURRENTOPERATION.textContent += operatorButton.textContent;
-                        currentValue = operator;
-                        displayResults(operator);
+                        activateOperation(operatorButton);
                         if (resultInStock) {
                             value1 = resultInStock;
                             value2 = '';
                         }
-                     }
+                    }
                 })
             })
         
@@ -134,16 +151,6 @@ NUMBERBUTTONS.forEach(numberButton => {
 CLEARBUTTON.addEventListener('click', function(){
     resetPara()
 })
-
-function currentOperationBackspace(currentOp){
-    operationAray = Array.from(currentOp.textContent);
-    lastChar = operationAray[operationAray.length-1];
-    if (lastChar!=='+' && lastChar!=='-' && lastChar!=='*' && lastChar!=='/' ){
-        currentOp.textContent = (operationAray.slice(0, operationAray.length-1)).join('');
-    } else {
-        isFirstInputNumber = false;
-    }
-}
 
 BACKBUTTON.addEventListener('click', function backspace(){
     currentOperationBackspace(CURRENTOPERATION);
