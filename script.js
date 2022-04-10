@@ -153,23 +153,25 @@ CLEARBUTTON.addEventListener('click', function(){
 })
 
 BACKBUTTON.addEventListener('click', function backspace(){
-    currentOperationBackspace(CURRENTOPERATION);
-    if (currentValue===value1 || currentValue===value2){
-        newCurrentValue = Array.from(currentValue);
-        if (newCurrentValue[newCurrentValue.length-1]==='.') {
-            disableDot = false;
+    if (!resultGiven){
+        currentOperationBackspace(CURRENTOPERATION);
+        if (currentValue===value1 || currentValue===value2){
+            newCurrentValue = Array.from(currentValue);
+            if (newCurrentValue[newCurrentValue.length-1]==='.') {
+                disableDot = false;
+            }
+            newCurrentValue =  newCurrentValue.slice(0, newCurrentValue.length-1);
+            if (currentValue===value1) {
+                value1 = newCurrentValue.join('')
+                currentValue = value1;
+                DISPLAYRESULT.textContent = value1
+            } else {
+                value2 = newCurrentValue.join('')
+                currentValue = value2;
+                DISPLAYRESULT.textContent = value2;
+            }
+        if (!onlyOneDecimal) onlyOneDecimal = true;
         }
-        newCurrentValue =  newCurrentValue.slice(0, newCurrentValue.length-1);
-        if (currentValue===value1) {
-            value1 = newCurrentValue.join('')
-            currentValue = value1;
-            DISPLAYRESULT.textContent = value1
-        } else {
-            value2 = newCurrentValue.join('')
-            currentValue = value2;
-            DISPLAYRESULT.textContent = value2;
-        }
-    if (!onlyOneDecimal) onlyOneDecimal = true;
     }
 })
 
