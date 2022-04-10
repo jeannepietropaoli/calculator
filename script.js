@@ -6,6 +6,7 @@ const CLEARBUTTON = document.querySelector('#clear');
 const DOTBUTTON = document.querySelector('#dot');
 const BACKBUTTON = document.querySelector('#back');
 const CURRENTOPERATION = document.querySelector('.currentOperation');
+const LOGO = document.querySelector('.logo');
 CURRENTOPERATION.textContent = '';
 let value1 = '';
 let value2 = '';
@@ -126,7 +127,7 @@ NUMBERBUTTONS.forEach(numberButton => {
             EQUALBUTTON.addEventListener('click', function displayResult(){
                 (!resultInStock) ? DISPLAYRESULT.textContent = value1 :DISPLAYRESULT.textContent = resultInStock;
                 resultGiven = true;
-                /*CURRENTOPERATION.textContent = resultInStock;*/
+                CURRENTOPERATION.textContent = resultInStock;
             })
         }
     })
@@ -136,12 +137,18 @@ CLEARBUTTON.addEventListener('click', function(){
     resetPara()
 })
 
-BACKBUTTON.addEventListener('click', function backspace(){
-    operationAray = Array.from(CURRENTOPERATION.textContent);
+function currentOperationBackspace(currentOp){
+    operationAray = Array.from(currentOp.textContent);
     lastChar = operationAray[operationAray.length-1];
     if (lastChar!=='+' && lastChar!=='-' && lastChar!=='*' && lastChar!=='/' ){
-        CURRENTOPERATION.textContent = (operationAray.slice(0, operationAray.length-1)).join('');
+        currentOp.textContent = (operationAray.slice(0, operationAray.length-1)).join('');
+    } else {
+        isFirstInputNumber = false;
     }
+}
+
+BACKBUTTON.addEventListener('click', function backspace(){
+    currentOperationBackspace(CURRENTOPERATION);
     if (currentValue===value1 || currentValue===value2){
         newCurrentValue = Array.from(currentValue);
         if (newCurrentValue[newCurrentValue.length-1]==='.') {
@@ -159,4 +166,12 @@ BACKBUTTON.addEventListener('click', function backspace(){
         }
     if (!onlyOneDecimal) onlyOneDecimal = true;
     }
+})
+
+LOGO.addEventListener('mouseover', function(){
+    LOGO.src = 'logoHover.jpg';
+})
+
+LOGO.addEventListener('mouseout', function(){
+    LOGO.src = 'iconGit.jpg';
 })
